@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QD-Perovskite Heterocrystal Explorer</title>
+    <link rel="stylesheet" href="/static/style.css?v=2">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>QD-Perovskite Heterocrystal Explorer</h1>
+            <p>Discover ideal colloidal heterojunctions for optoelectronics</p>
+        </header>
+
+        <main>
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('single')">Single Pair Analysis</button>
+                <button class="tab-btn" onclick="switchTab('screen')">Screening Database</button>
+            </div>
+
+            <!-- Single Analysis View -->
+            <div id="single-view">
+                <section class="search-section">
+                    <div class="card">
+                        <h2>1. Select Perovskite</h2>
+                        <div class="input-group">
+                            <input type="text" id="perovskite-search" placeholder="e.g., CsPbBr3" value="CsPbBr3">
+                            <button onclick="searchPerovskite()">Search</button>
+                        </div>
+                        <div id="perovskite-results" class="results-list"></div>
+                        <div id="selected-perovskite" class="selected-item"></div>
+                    </div>
+
+                    <div class="card">
+                        <h2>2. Select Quantum Dot</h2>
+                        <div class="input-group">
+                            <input type="text" id="qd-search" placeholder="e.g., PbS" value="PbS">
+                            <button onclick="searchQD()">Search</button>
+                        </div>
+                        <div id="qd-results" class="results-list"></div>
+                        <div id="selected-qd" class="selected-item"></div>
+                    </div>
+                </section>
+
+                <section class="analysis-section">
+                    <button id="analyze-btn" class="primary-btn" disabled onclick="analyzeHeterojunction()">Analyze
+                        Heterojunction</button>
+
+                    <div id="analysis-results" class="hidden">
+                        <div class="results-grid">
+                            <div class="card metric-card">
+                                <h3>Lattice Mismatch</h3>
+                                <div class="metric-value" id="strain-value">--%</div>
+                                <p id="strain-note"></p>
+                            </div>
+                            <div class="card metric-card">
+                                <h3>Band Alignment</h3>
+                                <div class="metric-value" id="alignment-value">--</div>
+                                <p id="alignment-note"></p>
+                            </div>
+                        </div>
+
+                        <div class="card visualization-card">
+                            <h3>Band Diagram Visualization</h3>
+                            <canvas id="bandDiagram"></canvas>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Screening View -->
+            <div id="screen-view" class="hidden">
+                <section class="filters-section">
+                    <div class="card">
+                        <h2>Screening Filters</h2>
+                        <div class="filter-grid">
+                            <div class="filter-group">
+                                <label>Max Lattice Mismatch (%)</label>
+                                <input type="number" id="max-strain" value="5.0" step="0.1">
+                            </div>
+                            <div class="filter-group">
+                                <label>Perovskite Bandgap (eV)</label>
+                                <div class="range-inputs">
+                                    <input type="number" id="min-p-bg" placeholder="Min" value="1.5">
+                                    <span>-</span>
+                                    <input type="number" id="max-p-bg" placeholder="Max" value="3.0">
+                                </div>
+                            </div>
+                            <div class="filter-group">
+                                <label>QD Bandgap (eV)</label>
+                                <div class="range-inputs">
+                                    <input type="number" id="min-q-bg" placeholder="Min" value="0.0">
+                                    <span>-</span>
+                                    <input type="number" id="max-q-bg" placeholder="Max" value="1.5">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="primary-btn" onclick="runScreening()">Find Compatible Pairs</button>
+                    </div>
+                </section>
+
+                <section class="results-section">
+                    <div id="screening-loading" class="hidden">Scanning database... This may take a moment.</div>
+                    <div id="screening-results"></div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="/static/app.js?v=2"></script>
+</body>
+
+</html>
