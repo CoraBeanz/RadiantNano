@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material Details - QD-Perovskite Explorer</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .details-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .material-column {
+            background-color: var(--surface);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .material-header {
+            border-bottom: 1px solid #333;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .property-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #2c2c2c;
+        }
+
+        .property-label {
+            color: #888;
+        }
+
+        .property-value {
+            font-weight: bold;
+            color: var(--on-surface);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+
+            < !DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Material Details - QD-Perovskite Explorer</title><link rel="stylesheet" href="/static/style.css"><style>.details-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+                margin-top: 2rem;
+            }
+
+            .material-column {
+                background-color: var(--surface);
+                padding: 2rem;
+                border-radius: 12px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            }
+
+            .material-header {
+                border-bottom: 1px solid #333;
+                padding-bottom: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .property-row {
+                display: flex;
+                justify-content: space-between;
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #2c2c2c;
+            }
+
+            .property-label {
+                color: #888;
+            }
+
+            .property-value {
+                font-weight: bold;
+                color: var(--on-surface);
+            }
+
+            .back-link {
+                display: inline-block;
+                margin-bottom: 1rem;
+                color: var(--secondary);
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+            .back-link:hover {
+                text-decoration: underline;
+            }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← Back to Explorer</a>
+        <header>
+            <h1>Heterojunction Details</h1>
+        </header>
+
+        <div id="loading" style="text-align: center;">Loading details...</div>
+        <div id="error" style="text-align: center; color: var(--error); display: none;"></div>
+
+        <div id="details-content" class="details-container hidden">
+            <!-- Perovskite Column -->
+            <div class="material-column">
+                <div class="material-header">
+                    <h2 id="p-formula">Perovskite</h2>
+                    <p id="p-id" style="color: #666; font-size: 0.9rem;">ID: --</p>
+                </div>
+                <div style="height: 300px; width: 100%; position: relative;" id="p-structure-viewer"></div>
+                <div class="property-row">
+                    <span class="property-label">Bandgap</span>
+                    <span class="property-value" id="p-bg">-- eV</span>
+                </div>
+                <div class="property-row">
+                    <span class="property-label">Stability</span>
+                    <span class="property-value" id="p-stable">--</span>
+                </div>
+                <div class="property-row">
+                    <span class="property-label">Crystal System</span>
+                    <span class="property-value" id="p-system">--</span>
+                </div>
+                <div class="property-row">
+                    <span class="property-label">Spacegroup</span>
+                    <span class="property-value" id="p-spacegroup">--</span>
+                </div>
+                <div class="property-row">
+                    <span class="property-label">Lattice a</span>
+                    <span class="property-value" id="p-a">-- Å</span>
+                </div>
+                <div class="property-row">
+                    <span class="property-label">Lattice b</span>
+                    <span class="property-value" id="p-b">-- Å</span>
+                </div>
+                <div class="property-row">
+                    <span class="property-label">Lattice c</span>
+                    <span class="property-value" id="p-c">-- Å</span>
+                </div>
+            </div>
+
+            <!-- QD Column -->
+            <div class="material-column">
+                <div class="material-header">
+                    <h2 id="q-formula">Quantum Dot</h2>
+                    <p id="q-id" style="color: #666; font-size: 0.9rem;">ID: --</p>
+                </div>
+                <div style="height: 300px; width: 100%; position: relative;" id="q-structure-viewer"></div>
+                <div class="property-row">
+                    <span class="property-label">Bandgap</span>
+                    <span class="property-value" id="q-bg">-- eV</span>
+                </div>
+                <div class="property-row">
+                    <span class="property-label">Stability</span>
+                    <span class="property-value" id="q-stable">--</span>
+                </div>
+                <div class="property-row">
+                    <span class="property-label">Crystal System</span>
+                    <span class="property-value" id="q-system">--</span>
+                </div>
+                <div class="property-row">
+                    <span class="property-label">Spacegroup</span>
+                    <span class="property-value" id="q-spacegroup">--</span>
+                </div>
+                <div class="property-row">
+                    <span class="property-label">Lattice a</span>
+                    <span class="property-value" id="q-a">-- Å</span>
+                </div>
+                <div class="property-row">
+                    <span class="property-label">Lattice b</span>
+                    <span class="property-value" id="q-b">-- Å</span>
+                </div>
+                <div class="property-row">
+                    <span class="property-label">Lattice c</span>
+                    <span class="property-value" id="q-c">-- Å</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function fetchDetails() {
+            const params = new URLSearchParams(window.location.search);
+            const pid = params.get('pid');
+            const qid = params.get('qid');
+
+            if (!pid || !qid) {
+                document.getElementById('error').textContent = "Missing material IDs in URL.";
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('loading').style.display = 'none';
+                return;
+            }
+
+            try {
+                const [pRes, qRes] = await Promise.all([
+                    fetch(`/material/${pid}`),
+                    fetch(`/material/${qid}`)
+                ]);
+
+                if (!pRes.ok || !qRes.ok) throw new Error("Failed to fetch material details");
+
+                const pData = await pRes.json();
+                const qData = await qRes.json();
+
+                renderMaterial(pData, 'p');
+                renderMaterial(qData, 'q');
+
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('details-content').classList.remove('hidden');
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('error').textContent = "Error loading details. Please try again.";
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+
+        function renderMaterial(data, prefix) {
+            document.getElementById(`${prefix}-formula`).textContent = data.formula;
+            document.getElementById(`${prefix}-id`).textContent = `ID: ${data.material_id}`;
+            document.getElementById(`${prefix}-bg`).textContent = `${data.band_gap.toFixed(3)} eV`;
+            document.getElementById(`${prefix}-stable`).textContent = data.is_stable ? "Stable" : "Unstable";
+            document.getElementById(`${prefix}-system`).textContent = data.symmetry.crystal_system;
+            document.getElementById(`${prefix}-spacegroup`).textContent = data.symmetry.symbol;
+
+            document.getElementById(`${prefix}-a`).textContent = `${data.lattice_params.a.toFixed(3)} Å`;
+            document.getElementById(`${prefix}-b`).textContent = `${data.lattice_params.b.toFixed(3)} Å`;
+            document.getElementById(`${prefix}-c`).textContent = `${data.lattice_params.c.toFixed(3)} Å`;
+
+            // Render Structure
+            if (data.structure) {
+                const viewer = $3Dmol.createViewer(`${prefix}-structure-viewer`, {
+                    backgroundColor: '0x1e1e1e'
+                });
+                viewer.addModel(data.structure, "cif");
+                viewer.setStyle({}, { stick: { radius: 0.15 }, sphere: { scale: 0.25 } });
+                viewer.zoomTo();
+                viewer.render();
+            }
+        }
+
+        fetchDetails();
+    </script>
+</body>
+
+</html>
