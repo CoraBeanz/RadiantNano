@@ -1,7 +1,17 @@
 from mp_api.client import MPRester
+import os
 import sys
 
-API_KEY = "OW3UAobyENgvmSLfdLbnOulYoR6SHV2y"
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
+API_KEY = os.environ.get("MP_API_KEY")
+if not API_KEY:
+    print("MP_API_KEY not set. Add it to your environment or a .env file.")
+    sys.exit(1)
 
 def test_api():
     try:
